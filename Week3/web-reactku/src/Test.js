@@ -4,7 +4,7 @@ import ReactDOM  from "react-dom";
 class Test extends React.Component {
     constructor(props){
         super(props);
-        this.state = { hello : "World!"};
+        this.state = { hello : "Nigga!"};
     }
 
     componentWillMount(){
@@ -16,7 +16,7 @@ class Test extends React.Component {
     }
 
     changeState(){
-        this.setState({  hello : "Geek!"});
+        this.setState({  hello : "Fams!"});
     }
 
     render(){

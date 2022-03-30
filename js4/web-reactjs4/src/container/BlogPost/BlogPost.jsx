@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import './BlogPost.css';
-import Post from "./post";
+import Post from "./Post";
+
 
 class BlogPost extends Component {
 

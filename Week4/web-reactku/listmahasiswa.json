@@ -1,13 +1,20 @@
 {
     "mahasiswa": [
-      {
-        "id": 2352346,
-        "nim": "1941720219",
-        "alamat": "Jalan Candi Panggung No 19 di Kota Subang - Jawa barat",
-        "hp": "23534662",
-        "angkatan": "2019",
-        "status": "Aktif",
-        "nama": "Rifkie Nurdian"
-      }
+     {
+         "NIM": 180823453,
+         "nama": "Mahasiswa 1",
+         "alamat": "Jl. Soekarno Hatta No. 9 Malang",
+         "hp": "081802023249",
+         "angkatan": 2018,
+         "status": "aktif"
+     },
+     {
+         "NIM": 140823453,
+         "nama": "Mahasiswa X",
+         "alamat": "Jl. Menur No. 9 Surabaya",
+         "hp": "081802023523",
+         "angkatan": 2014,
+         "status": "lulus"
+     }
     ]
-  }
+}

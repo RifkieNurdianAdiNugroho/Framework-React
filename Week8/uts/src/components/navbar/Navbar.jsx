@@ -77,7 +77,7 @@ const Navbar = () => {
                         textAlign={useBreakpointValue({ base: 'center', md: 'left' })}
                         fontFamily={'heading'}
                         color={useColorModeValue('gray.800', 'white')}>
-                        <Link to='/'> SamStore </Link>
+                        <Link to='/'> Rifkie Shop </Link>
                     </Text>
                 </Flex>
 
@@ -108,7 +108,7 @@ const Navbar = () => {
                     <Avatar
                         size={'sm'}
                         src={
-                            'https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80'
+                            'https://images.pexels.com/photos/6311251/pexels-photo-6311251.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'
                         }
                     />
                 </HStack>

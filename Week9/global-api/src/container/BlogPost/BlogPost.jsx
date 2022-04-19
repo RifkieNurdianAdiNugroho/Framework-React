@@ -94,7 +94,7 @@ render() {
             </div>
             <h2>Daftar Artikel</h2>
             {
-                this.state.listArtikel.map(artikel => {
+                this.state.listArtikel.reverse().map(artikel => {
                     return <Post key={artikel.id} judul={artikel.title} isi={artikel.body} idArtikel={artikel.id} hapusArtikel={this.handleHapusArtikel} />
                 })
             }

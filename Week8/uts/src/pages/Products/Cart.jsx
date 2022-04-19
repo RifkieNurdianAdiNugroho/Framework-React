@@ -84,6 +84,7 @@ function Cart() {
                         <Th>Gambar</Th>
                         <Th isNumeric>Harga Satuan</Th>
                         <Th isNumeric>Jumlah</Th>
+                       
                     </Tr>
                 </Thead>
                 <Tbody>
@@ -99,6 +100,7 @@ function Cart() {
                                 qty={product.qty}
                                 onIncreaseQuantity={increaseQuantity}
                                 onDecreaseQuantity={decreaseQuantity}
+                                
                             />
                         })
                     }

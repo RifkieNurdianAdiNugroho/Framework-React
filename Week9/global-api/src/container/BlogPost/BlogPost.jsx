@@ -39,10 +39,13 @@ componentDidMount() {
 }
 
 handleHapusArtikel = (data) => {
-    fetch(`http://localhost:3001/posts/${data}`, { method: 'DELETE' })
-        .then(res => {
-            this.ambilDataDariServerAPI()
-        })
+    // fetch(`http://localhost:3001/posts/${data}`, { method: 'DELETE' })
+    //     .then(res => {
+    //         this.ambilDataDariServerAPI()
+    //     })
+    API.deleteNewsBlog(data).then((response) => {
+        this.ambilDataDariServerAPI();
+    })
 }
 
 handleTambahArtikel = (event) => {

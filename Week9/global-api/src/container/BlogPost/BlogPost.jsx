@@ -6,12 +6,14 @@ import API from "../../services/index";
 
 class BlogPost extends Component {
     state = {
-        listArtikel: [],
+        listmahasiswa: [],
         insertArtikel: {
-            userId: 1,
-            id: 1,
-            title: "",
-            body: ""
+            id:"",
+            nim:"",
+            alamat:"",
+            hp:"",
+            angkatan:"",
+            status:""
         }
     }
 
@@ -28,9 +30,9 @@ class BlogPost extends Component {
     ambilDataDariServerAPI = () =>{
      API.getNewsBlog().then(result => {
         this.setState( {
-            listArtikel: result
-        })
-    })   
+            listmahasiswa: result
+        });
+    });   
 }
 
 
@@ -45,7 +47,7 @@ handleHapusArtikel = (data) => {
     //     })
     API.deleteNewsBlog(data).then((response) => {
         this.ambilDataDariServerAPI();
-    })
+    });
 }
 
 handleTambahArtikel = (event) => {
@@ -78,27 +80,58 @@ handleTombolSimpan = () => {
 
 
 render() {
-    return (
+    return(
         <div className="post-artikel">
             <div className="form pb-2 border-button">
                 <div className="form-group row">
-                    <label htmlFor="title" className="col-sm-2 col-form-label">Judul</label>
+                    <label htmlFor="title" className="col-sm-2 col-form-label">nim</label>
                     <div className="col-sm">
-                        <input type="text" className="form-control" id="title" name="title" onChange={this.handleTambahArtikel} />
+                         <input type="text" className="form-control" id="title" name="nim" onChange={this.handleTambahArtikel}/>
                     </div>
                 </div>
                 <div className="form-group row">
-                    <label htmlFor="body" className="col-sm-2 col-form-label">Isi</label>
-                    <div className="col-sm-10">
-                        <textarea className="form-control" id="body" name="body" rows="3" onChange={this.handleTambahArtikel}></textarea>
+                    <label htmlFor="title" className="col-sm-2 col-form-label">nama</label>
+                    <div className="col-sm">
+                         <input type="text" className="form-control" id="title" name="nama" onChange={this.handleTambahArtikel}/>
                     </div>
                 </div>
+                <div className="form-group row">
+                    <label htmlFor="title" className="col-sm-2 col-form-label">alamat</label>
+                    <div className="col-sm">
+                         <input type="text" className="form-control" id="title" name="alamat" onChange={this.handleTambahArtikel}/>
+                    </div>
+                </div>
+                <div className="form-group row">
+                    <label htmlFor="title" className="col-sm-2 col-form-label">hp</label>
+                    <div className="col-sm">
+                         <input type="text" className="form-control" id="title" name="hp" onChange={this.handleTambahArtikel}/>
+                    </div>
+                </div>
+                <div className="form-group row">
+                    <label htmlFor="title" className="col-sm-2 col-form-label">angkatan</label>
+                    <div className="col-sm">
+                         <input type="text" className="form-control" id="title" name="angkatan" onChange={this.handleTambahArtikel}/>
+                    </div>
+                </div>
+                <div className="form-group row">
+                            <label htmlFor="status" className="col-sm-2 col-form-label">Status</label>
+                            <div className="col-sm-10">
+                                <select class="form-control" id="status" name="status" onChange={this.handleTambahArtikel}>
+                                    <option>Pilih Status</option>
+                                    <option value={"Aktif"}>Aktif</option>
+                                    <option value={"Lulus"}>Lulus</option>
+                                    <option value={"Drop Out"}>Drop Out</option>
+                                </select>
+                            </div>
+                        </div>
+                
                 <button type="submit" className="btn btn-primary" onClick={this.handleTombolSimpan}>Simpan</button>
             </div>
-            <h2>Daftar Artikel</h2>
+            <h2>Daftar Mahasiswa</h2>
             {
-                this.state.listArtikel.reverse().map(artikel => {
-                    return <Post key={artikel.id} judul={artikel.title} isi={artikel.body} idArtikel={artikel.id} hapusArtikel={this.handleHapusArtikel} />
+                this.state.listmahasiswa.reverse().map(mahasiswa =>{
+                    return <Post
+                    nim={mahasiswa.nim} nama={mahasiswa.nama} alamat={mahasiswa.alamat} hp={mahasiswa.hp} angkatan={mahasiswa.angkatan} status={mahasiswa.status} idMahasiswa={mahasiswa.id} hapusArtikel={this.handleHapusArtikel}/>
                 })
             }
         </div>

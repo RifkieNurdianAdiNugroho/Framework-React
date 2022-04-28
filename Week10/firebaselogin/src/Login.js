@@ -1,5 +1,7 @@
 import React, { useState, useContext } from "react";
 import { AuthContext } from ".";
+import firebase from "firebase";
+
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -7,8 +9,15 @@ const Login = () => {
     const Auth = useContext(AuthContext);
     const handleForm = e => {
         e.preventDefault();
-        console.log(Auth);
-        Auth.setLoggedIn(true);
+        firebase
+            .auth()
+            .signInWithEmailAndPassword(email, password)
+            .then((res) => {
+                if (res.user) Auth.setLoggedIn(true);
+            })
+            .catch((e) => {
+                setErrors(e.message);
+            });
     };
     return (
         <div>
@@ -30,7 +39,7 @@ const Login = () => {
                 />
                 <hr />
                 <button class="googleBtn" type="button">
-                    <ing
+                    <img
                         src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
                         alt="logo"
                     />

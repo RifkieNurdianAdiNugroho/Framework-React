@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
-import { Switch, Browser, Router as Router, Route } from "react-router-dom";
-import routes from "./routes.js";
+import { Switch, BrowserRouter as Router, Route } from "react-router-dom";
+import routes from "./Routes.js";
 import Header from "./Header";
-import "./styles.css";
-import * as firebase from "firebase";
+import "./style.css";
+import  firebase from "firebase/app";
 import firebaseConfig from "./firebase.config.js";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 firebase.initializeApp(firebaseConfig);
 

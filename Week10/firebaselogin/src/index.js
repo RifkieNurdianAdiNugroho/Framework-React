@@ -12,10 +12,10 @@ firebase.initializeApp(firebaseConfig);
 
 export const AuthContext = React.createContext(null);
 function App() {
-  const [isLoggedIn, setLoggedIn] = useState(false);
+  const [isLoggedIn, setLoggedIn] = useState();
   return (
     <AuthContext.Provider value={{ isLoggedIn, setLoggedIn }}>
-    Is logged in? {JSON.stringify (isLoggedIn)}
+    The page? {JSON.stringify (isLoggedIn)}
       <div className="App">
         <Router>
           <Header />

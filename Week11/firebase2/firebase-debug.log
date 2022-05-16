@@ -11,3 +11,19 @@
 [debug] [2022-05-16T14:31:00.083Z] [iam] checking project fir-rifkie for permissions ["firebase.projects.get"]
 [debug] [2022-05-16T14:31:00.087Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/fir-rifkie:testIamPermissions [none]
 [debug] [2022-05-16T14:31:00.087Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/fir-rifkie:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2022-05-16T14:31:01.326Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/fir-rifkie:testIamPermissions 200
+[debug] [2022-05-16T14:31:01.326Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/fir-rifkie:testIamPermissions {"permissions":["firebase.projects.get"]}
+[debug] [2022-05-16T14:31:01.328Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/fir-rifkie [none]
+[debug] [2022-05-16T14:31:01.827Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/fir-rifkie 200
+[debug] [2022-05-16T14:31:01.827Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/fir-rifkie {"projectId":"fir-rifkie","projectNumber":"48225544177","displayName":"firebaserifkie","name":"projects/fir-rifkie","resources":{"hostingSite":"fir-rifkie"},"state":"ACTIVE"}
+[info] 
+[info] === Serving from 'D:\PBF\Framework-React\Week11\firebase2'...
+[info] 
+[debug] [2022-05-16T14:31:01.833Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/fir-rifkie/sites 
+[debug] [2022-05-16T14:31:03.264Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/fir-rifkie/sites 200
+[debug] [2022-05-16T14:31:03.264Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/fir-rifkie/sites {"sites":[{"name":"projects/fir-rifkie/sites/fir-rifkie","defaultUrl":"https://fir-rifkie.web.app","appId":"1:48225544177:web:1114bd61313d6e20a58650","type":"DEFAULT_SITE"}]}
+[debug] [2022-05-16T14:31:03.265Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/fir-rifkie/webApps/1:48225544177:web:1114bd61313d6e20a58650/config [none]
+[debug] [2022-05-16T14:31:04.592Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/fir-rifkie/webApps/1:48225544177:web:1114bd61313d6e20a58650/config 200
+[debug] [2022-05-16T14:31:04.592Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/fir-rifkie/webApps/1:48225544177:web:1114bd61313d6e20a58650/config {"projectId":"fir-rifkie","appId":"1:48225544177:web:1114bd61313d6e20a58650","storageBucket":"fir-rifkie.appspot.com","apiKey":"AIzaSyD3v5SUjJwhHaCG-UzFRPjnoRbClBknMdI","authDomain":"fir-rifkie.firebaseapp.com","messagingSenderId":"48225544177"}
+[info] i  hosting: Serving hosting files from: public {"metadata":{"emulator":{"name":"hosting"},"message":"Serving hosting files from: \u001b[1mpublic\u001b[22m"}}
+[info] +  hosting: Local server: http://localhost:5000 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://localhost:5000\u001b[22m\u001b[24m"}}

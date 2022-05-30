@@ -15,8 +15,10 @@ import Container from "@material-ui/core/Container";
 const styles = () => ({
   "@global": {
     body: {
-      backgroundColor: "#fff",
+      
+      backgroundColor: "black",
     },
+
   },
   paper: {
     marginTop: 100,

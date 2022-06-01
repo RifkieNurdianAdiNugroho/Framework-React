@@ -1,142 +1,141 @@
 import React, { Component } from "react";
-import './BlogPost.css';
+import "./BlogPost.css";
 import Post from "../../component/BlogPost/Post";
-import API from "../../services/index";
-
+// import API from "../../services";
+import firebase from "firebase";
+import firebaseConfig from "../../firebase/config";
+import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
 
 class BlogPost extends Component {
-    state = {
-        listmahasiswa: [],
-        insertArtikel: {
-            id:"",
-            nim:"",
-            alamat:"",
-            hp:"",
-            angkatan:"",
-            status:""
-        }
+  constructor(props) {
+    super(props);
+    firebase.initializeApp(firebaseConfig); // inisialisasi konfigurasi database firebase
+
+    this.state = {
+      // komponen state dari React untuk statefull component
+      listArtikel: [], // variabel array yang digunakan untuk menyimpan data API
+    };
+  }
+
+  ambilDataDariSeverAPI = () => {
+    // fungsi untuk mengambil data API dari Realtime Database Firebase
+    let ref = firebase.database().ref("/");
+    ref.on("value", (snapshot) => {
+      const state = snapshot.val();
+      this.setState(state);
+    });
+  };
+
+  simpanDataKeServerAPI = () => {
+    // fungsi untuk mengirim/insert data API dari Realtime Database Firebase
+    firebase.database().ref("/").set(this.state);
+  };
+
+  componentDidMount() {
+    // komponen untuk mengecek ketika component telah dimounting, maka panggil API
+    this.ambilDataDariSeverAPI(); // ambil data dari server API lokal
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState !== this.state) {
+      this.simpanDataKeServerAPI();
+    }
+  }
+
+  handleHapusArtikel = (idArtikel) => {
+    // fungsi yang meng-handle button action hapus data
+    const { listArtikel } = this.state;
+    const newState = listArtikel.filter((data) => {
+      return data.uid !== idArtikel;
+    });
+    this.setState({ listArtikel: newState });
+  };
+
+  handleTombolSimpan = (event) => {
+    // fungsi untuk meng-handle saat button action diklik (simpan data)
+    let title = this.refs.judulArtikel.value; // this.refs mengacu pada input field (input text, textarea, number, dll)
+    let body = this.refs.isiArtikel.value;
+    let uid = this.refs.uid.value;
+
+    if (uid && title && body) {
+      // cek apakah semua data memiliki nilai (tidak null)
+      const { listArtikel } = this.state;
+      const indeksArtikel = listArtikel.findIndex((data) => {
+        return data.uid === uid;
+      });
+      listArtikel[indeksArtikel].title = title;
+      listArtikel[indeksArtikel].body = body;
+      this.setState({ listArtikel });
+    } else if (title && body) {
+      // jika data belum di server
+      const uid = new Date().getTime().toString();
+      const { listArtikel } = this.state;
+      listArtikel.push({ uid, title, body });
+      this.setState({ listArtikel });
     }
 
-    // ambilDataDariServerAPI = () => {
-    //     fetch(`http://localhost:3001/posts`)
-    //     .then(response => response.json())
-    //     .then(jsonHasilAmbilDariAPI =>{
-    //         this.setState({
-    //             listArtikel: jsonHasilAmbilDariAPI
-    //         })
-    //     })
+    this.refs.judulArtikel.value = "";
+    this.refs.isiArtikel.value = "";
+    this.refs.uid.value = "";
+  };
 
-    // }
-    ambilDataDariServerAPI = () =>{
-     API.getNewsBlog().then(result => {
-        this.setState( {
-            listmahasiswa: result
-        });
-    });   
-}
-
-
-componentDidMount() {
-    this.ambilDataDariServerAPI()
-}
-
-handleHapusArtikel = (data) => {
-    // fetch(`http://localhost:3001/posts/${data}`, { method: 'DELETE' })
-    //     .then(res => {
-    //         this.ambilDataDariServerAPI()
-    //     })
-    API.deleteNewsBlog(data).then((response) => {
-        this.ambilDataDariServerAPI();
-    });
-}
-
-handleTambahArtikel = (event) => {
-    let formInsertArtikel = { ...this.state.insertArtikel };
-    let timestamp = new Date().getTime();
-    formInsertArtikel['id'] = timestamp;
-    formInsertArtikel[event.target.name] = event.target.value;
-    this.setState({
-        insertArtikel: formInsertArtikel
-    })
-}
-
-handleTombolSimpan = () => {
-    // fetch('http://localhost:3001/posts', {
-    //     method: 'post',
-    //     headers: {
-    //         'Accept': 'application/json',
-    //         'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify(this.state.insertArtikel)
-    // })
-
-    //     .then((response) => {
-    //         this.ambilDataDariServerAPI();
-    //     });
-    API.postNewsBlog(this.state.insertArtikel) .then((response)=> {
-        this.ambilDataDariServerAPI();
-    });   
-}
-
-
-render() {
-    return(
-        <div className="post-artikel">
-            <div className="form pb-2 border-button">
-                <div className="form-group row">
-                    <label htmlFor="title" className="col-sm-2 col-form-label">nim</label>
-                    <div className="col-sm">
-                         <input type="text" className="form-control" id="title" name="nim" onChange={this.handleTambahArtikel}/>
-                    </div>
-                </div>
-                <div className="form-group row">
-                    <label htmlFor="title" className="col-sm-2 col-form-label">nama</label>
-                    <div className="col-sm">
-                         <input type="text" className="form-control" id="title" name="nama" onChange={this.handleTambahArtikel}/>
-                    </div>
-                </div>
-                <div className="form-group row">
-                    <label htmlFor="title" className="col-sm-2 col-form-label">alamat</label>
-                    <div className="col-sm">
-                         <input type="text" className="form-control" id="title" name="alamat" onChange={this.handleTambahArtikel}/>
-                    </div>
-                </div>
-                <div className="form-group row">
-                    <label htmlFor="title" className="col-sm-2 col-form-label">hp</label>
-                    <div className="col-sm">
-                         <input type="text" className="form-control" id="title" name="hp" onChange={this.handleTambahArtikel}/>
-                    </div>
-                </div>
-                <div className="form-group row">
-                    <label htmlFor="title" className="col-sm-2 col-form-label">angkatan</label>
-                    <div className="col-sm">
-                         <input type="text" className="form-control" id="title" name="angkatan" onChange={this.handleTambahArtikel}/>
-                    </div>
-                </div>
-                <div className="form-group row">
-                            <label htmlFor="status" className="col-sm-2 col-form-label">Status</label>
-                            <div className="col-sm-10">
-                                <select class="form-control" id="status" name="status" onChange={this.handleTambahArtikel}>
-                                    <option>Pilih Status</option>
-                                    <option value={"Aktif"}>Aktif</option>
-                                    <option value={"Lulus"}>Lulus</option>
-                                    <option value={"Drop Out"}>Drop Out</option>
-                                </select>
-                            </div>
-                        </div>
-                
-                <button type="submit" className="btn btn-primary" onClick={this.handleTombolSimpan}>Simpan</button>
+  render() {
+    return (
+      <div className="post-artikel">
+        <div className="form pb-3 border-bottom">
+          <div className="form-gorup row">
+            <label htmlFor="title" className="col-sm-2 col-form-label">
+              Judul
+            </label>
+            <div className="col-sm-10">
+              <input
+                type="text"
+                className="form-control"
+                id="title"
+                name="title"
+                ref="judulArtikel"
+              />
             </div>
-            <h2>Daftar Mahasiswa</h2>
-            {
-                this.state.listmahasiswa.reverse().map(mahasiswa =>{
-                    return <Post
-                    nim={mahasiswa.nim} nama={mahasiswa.nama} alamat={mahasiswa.alamat} hp={mahasiswa.hp} angkatan={mahasiswa.angkatan} status={mahasiswa.status} idMahasiswa={mahasiswa.id} hapusArtikel={this.handleHapusArtikel}/>
-                })
-            }
+          </div>
+          <div className="form-group row my-3">
+            <label htmlFor="body" className="col-sm-2 col-form-label">
+              Isi
+            </label>
+            <div className="col-sm-10">
+              <textarea
+                name="body"
+                id="body"
+                rows="3"
+                className="form-control"
+                ref="isiArtikel"
+              ></textarea>
+            </div>
+          </div>
+          <input type="hidden" name="uid" ref="uid" />
+          <Grid container justify="center">
+           <Button color="primary" size="large" type="submit" variant="contained" className="btn btn-primary"
+            onClick={this.handleTombolSimpan}>
+           Simpan
+           </Button>
+          </Grid>
         </div>
-    )
-}
+        <h2 className="mt-2 fw-bolder">Daftar Artikel</h2>
+        {this.state.listArtikel.map((artikel) => {
+          // looping dan masukkan untuk setiap data yang ada di listArtikel ke variabel artikel
+          return (
+            <Post
+              key={artikel.uid}
+              judul={artikel.title}
+              isi={artikel.body}
+              idArtikel={artikel.uid}
+              hapusArtikel={this.handleHapusArtikel}
+            />
+          );
+        })}
+      </div>
+    );
+  }
 }
 
 export default BlogPost;
